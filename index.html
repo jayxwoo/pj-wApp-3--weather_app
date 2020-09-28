@@ -19,10 +19,36 @@
     <link rel="stylesheet" href="./css/style.css" type="text/css">
 
     <!-- title -->
-    <title></title>
+    <title>Project Web App #3 Weather app</title>
 </head>
 
 <body>
+    <div class="app-container">
+        <!-- app title -->
+        <h1>Weather</h1>
+
+        <!-- search form -->
+        <form action="">
+            <label for="location-input" class="location label">Enter a location for weather information</label>
+            <input type="text" id="location-input" name="location" class="location-input" placeholder="enter location">
+        </form>
+
+        <!-- result section -->
+        <section class="result-card">
+            <div class="weather-image-container">
+                <img class="weather-image" src="https://via.placeholder.com/400x300" alt="">
+            </div>
+            <div class="weather-icon-container">
+                <img src="https://via.placeholder.com/100" alt="" class="weather-icon-img">
+            </div>
+            <div class="text-info-container">
+                <h3 class="location-city">Auckland</h3>
+                <p class="location-country">New Zealand</p>
+                <p class="weather-info-text">Sunny</p>
+                <p class="weather-info-figure"><span>24</span>°C</p>
+            </div>
+        </section>
+    </div>
 
     <!-- js links -->
     <script type="module" src="./js/script.js"></script>
