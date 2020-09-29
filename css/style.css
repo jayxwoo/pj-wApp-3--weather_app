@@ -33,13 +33,13 @@ body { font-family: Helvetica; }
 /* header */
 .header { background-color: var(--main); border-radius: 20px; padding: 25px; color: var(--contrast); margin-bottom: 10px; }
 .app-title { margin-bottom: 25px; font-size: 25px; }
-.location-form { display: flex; }
-.location-label { margin-bottom: 15px; font-size: 0.7; }
-.location-input { border: none; outline: none; font-size: 0.9rem; padding: 10px; border-radius: 5px; color: var(--blue); font-weight: bold; flex-grow: 1; margin-right: 5px; }
-.location-input::placeholder { color: var(--blue); font-weight: lighter; }
-.location-btn { border: none; outline: none; background-color: var(--blue); color: white; border-radius: 5px; padding: 10px; cursor: pointer; }
-.location-btn:hover { background-color: var(--darkblue); }
-.location-btn:active { transform: translate(1px, 1px); }
+.search-form { display: flex; }
+.search-label { margin-bottom: 15px; font-size: 0.7; }
+.search-input { border: none; outline: none; font-size: 0.9rem; padding: 10px; border-radius: 5px; color: var(--blue); font-weight: bold; flex-grow: 1; margin-right: 5px; }
+.search-input::placeholder { color: var(--blue); font-weight: lighter; }
+.search-btn { border: none; outline: none; background-color: var(--blue); color: white; border-radius: 5px; padding: 10px; cursor: pointer; }
+.search-btn:hover { background-color: var(--darkblue); }
+.search-btn:active { transform: translate(1px, 1px); }
 
 /* result card */
 .result-card { background-color: var(--main); border-radius: 20px; overflow: hidden; }
