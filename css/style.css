@@ -10,6 +10,7 @@
 :root {
     --main: rgba(250, 250, 250, 0.7);
     --contrast: rgba(0, 0, 0, 0.7);
+    --grey: rgba(117, 117, 117, 0.7);
     --blue: rgba(3, 115, 252, 0.7);
 }
 
@@ -26,10 +27,10 @@ body { font-family: Helvetica; }
 
 /* app container & app main */
 .app-container { background-image: url(../img/app-bg.jpg); width: 100vw; min-height: 100vh; background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; align-items: center; justify-content: center; padding: 30px; }
-.app-main { border: 2px solid red; text-align: center; width: 100%; max-width: calc(1440px*0.5); }
+.app-main { text-align: center; width: 100%; max-width: calc(1440px*0.5); }
 
 /* header */
-.header { border: 2px solid blue; background-color: var(--main); border-radius: 15px; padding: 25px; color: var(--contrast); margin-bottom: 10px; }
+.header { background-color: var(--main); border-radius: 20px; padding: 25px; color: var(--contrast); margin-bottom: 10px; }
 .app-title { margin-bottom: 25px; font-size: 25px; }
 .location-form { display: flex; flex-direction: column; }
 .location-label { margin-bottom: 15px; font-size: 0.7; }
@@ -38,6 +39,11 @@ body { font-family: Helvetica; }
 
 
 /* result card */
-.result-card { border: 2px solid green; }
-.time-image {  }
-.weather-icon-image {  }
+.result-card { background-color: var(--main); border-radius: 20px; overflow: hidden; }
+.time-image { width: 100%; }
+.weather-icon-img { width: 100px; height: 100px; margin: 0 auto; transform: translateY(-50%); border-radius: 50%; }
+.text-info-container { margin-bottom: 40px; }
+.location-city { margin-bottom: 10px; }
+.location-country { margin-bottom: 20px; }
+.weather-info-text { margin-bottom: 20px; color: var(--grey); }
+.weather-info-figure { color: var(--blue); font-size: 2rem; font-weight: bold; }
