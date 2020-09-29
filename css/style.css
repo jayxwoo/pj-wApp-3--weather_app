@@ -7,7 +7,11 @@
 /* ====================
 [variables]
 ======================= */
-
+:root {
+    --main: rgba(250, 250, 250, 0.7);
+    --contrast: rgba(0, 0, 0, 0.7);
+    --blue: rgba(3, 115, 252, 0.7);
+}
 
 /* ====================
 [modules]
@@ -19,3 +23,21 @@
 ======================= */
 /* body */
 body { font-family: Helvetica; }
+
+/* app container & app main */
+.app-container { background-image: url(../img/app-bg.jpg); width: 100vw; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: scroll; }
+.app-main { border: 2px solid red; text-align: center; width: 100%; max-width: calc(1440px*0.5); }
+
+/* header */
+.header { border: 2px solid blue; background-color: var(--main); border-radius: 15px; padding: 25px; color: var(--contrast); margin-bottom: 10px; }
+.app-title { margin-bottom: 25px; font-size: 25px; }
+.location-form { display: flex; flex-direction: column; }
+.location-label { margin-bottom: 15px; font-size: 0.7; }
+.location-input { border: none; outline: none; font-size: 0.9rem; padding: 10px; border-radius: 5px; color: var(--blue); font-weight: bold; }
+.location-input::placeholder { color: var(--blue); font-weight: lighter; }
+
+
+/* result card */
+.result-card { border: 2px solid green; }
+.time-image {  }
+.weather-icon-image {  }
