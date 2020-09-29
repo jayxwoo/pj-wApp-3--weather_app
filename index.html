@@ -24,22 +24,22 @@
 
 <body>
     <div class="app-container">
-        <div class="app-main">
-            <header>
+        <main class="app-main">
+            <header class="header">
                 <!-- app title -->
-                <h1>Weather</h1>
+                <h1 class="app-title">Weather</h1>
         
                 <!-- search form -->
-                <form action="">
-                    <label for="location-input" class="location label">Enter a location for weather information</label>
-                    <input type="text" id="location-input" name="location" class="location-input" placeholder="enter location">
+                <form action="" class="location-form">
+                    <label for="location-input" class="location-label a11y-hidden">Enter a location for weather information</label>
+                    <input type="text" id="location-input" name="location" class="location-input" placeholder="Enter your location">
                 </form>
             </header>
     
-            <!-- result section -->
+            <!-- result card -->
             <section class="result-card">
-                <img class="time-image" src="https://via.placeholder.com/400" alt="">
-                <img src="https://via.placeholder.com/100" alt="" class="weather-icon-img">
+                <img class="time-image" src="" alt="">
+                <img class="weather-icon-img" src="" alt="">
                 <div class="text-info-container">
                     <h3 class="location-city">Auckland</h3>
                     <p class="location-country">New Zealand</p>
@@ -47,7 +47,7 @@
                     <p class="weather-info-figure"><span>24</span>°C</p>
                 </div>
             </section>
-        </div>
+        </main>
     </div>
 
     <!-- js links -->
