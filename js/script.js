@@ -3,10 +3,10 @@ import './default.js';
 
 // ========== script ==========
 // reference
-const key = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
+const appKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
 const searchForm = document.querySelector('.search-form');
 
-// get city
+// get location
 
 // get weatther
 
@@ -14,7 +14,8 @@ const searchForm = document.querySelector('.search-form');
 const main = function () {
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log('submitted');
+        console.log(searchForm.search.value.trim().toLowerCase());
+        searchForm.reset();
     });
 };
 
