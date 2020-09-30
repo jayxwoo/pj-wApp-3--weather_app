@@ -9,10 +9,10 @@ const searchForm = document.querySelector('.search-form');
 
 // get location
 class LocationFetcher {
-    constructor(appKey, locationEndpoint, location) {
-        this.appKey = appKey;
-        this.locationEndpoint = locationEndpoint;
+    constructor(location) {
         this.location = location;
+        this.locationQuery = `?apikey=${appKey}&q=${this.location}`;
+        this.locationEndpoint = locationBase + this.locationQuery;
     }
 
     async getData() {
@@ -27,22 +27,30 @@ class LocationFetcher {
 }
 
 // get weatther
+class WeatherFetcher {
+    constructor(appKey, ) {
+        
+    }
+}
 
 // main
 const main = function () {
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const location = searchForm.search.value.trim().toLowerCase();
-        const locationQuery = `?apikey=${appKey}&q=${location}`;
-        const locationEndpoint = locationBase + locationQuery;
 
-        // get location data
-        const locationFetcher = new LocationFetcher(appKey, locationEndpoint, location);
+        // get location search input
+        const location = searchForm.search.value.trim().toLowerCase();
+
+        // fetching location data
+        const locationFetcher = new LocationFetcher(location);
         locationFetcher.getData().then(data => {
-            console.log(data);
+            const locationKey = data.Key;
+            console.log(locationKey);
+            // const weatherFetcher = new WeatherFetcher(appKey, locationKey);
         }).catch(err => {
             console.log(err);
-        })
+        });
+
 
         searchForm.reset();
     });
