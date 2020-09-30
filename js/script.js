@@ -58,12 +58,16 @@ const main = function () {
         const locationFetcher = new LocationFetcher(location);
         locationFetcher.getData().then(data => {
             console.log(data);
+            console.log(data.EnglishName);
+            console.log(data.Country.EnglishName);
             const locationKey = data.Key;
 
             // fetching weather data
             const weatherFetcher = new WeatherFetcher(locationKey);
             weatherFetcher.getData().then(data => {
                 console.log(data);
+                console.log(data.WeatherText);
+                console.log(data.Temperature.Metric.Value);
             });
         }).catch(err => {
             console.log(err);
