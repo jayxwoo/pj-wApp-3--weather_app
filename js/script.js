@@ -16,11 +16,11 @@ class LocationFetcher {
         this.locationEndpoint = locationBase + this.locationQuery;
     }
 
-    async getData() {
+    getData = async function () {
         // fetch
         const response = await fetch(this.locationEndpoint);
 
-        // convert json into objects
+        // convert json data into objects
         const data = await response.json();
 
         return data[0];
@@ -35,8 +35,14 @@ class WeatherFetcher {
         this.weatherEndpoint = weatherBase + this.weatherQuery;
     }
 
-    getData() {
-        console.log(this.weatherEndpoint);
+    getData = async function () {
+        // fetch
+        const response = await fetch(this.weatherEndpoint);
+
+        // convert json data into objects
+        const data = await response.json();
+
+        return data[0];
     }
 }
 
@@ -51,10 +57,14 @@ const main = function () {
         // fetching location data
         const locationFetcher = new LocationFetcher(location);
         locationFetcher.getData().then(data => {
+            console.log(data);
             const locationKey = data.Key;
-            console.log(locationKey);
+
+            // fetching weather data
             const weatherFetcher = new WeatherFetcher(locationKey);
-            weatherFetcher.getData();
+            weatherFetcher.getData().then(data => {
+                console.log(data);
+            });
         }).catch(err => {
             console.log(err);
         });
