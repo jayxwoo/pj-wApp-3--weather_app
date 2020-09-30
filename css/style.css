@@ -28,7 +28,7 @@ body { font-family: Helvetica; }
 
 /* app container & app main */
 .app-container { background-image: url(../img/app-bg.jpg); width: 100vw; min-height: 100vh; background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.app-main { text-align: center; width: 80%; max-width: 600px; }
+.app-main { text-align: center; width: 80%; max-width: 300px; }
 
 /* header */
 .header { background-color: var(--main); border-radius: 20px; padding: 25px; color: var(--contrast); margin-bottom: 10px; }

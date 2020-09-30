@@ -7,6 +7,8 @@ const appKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
 const locationBase = 'http://dataservice.accuweather.com/locations/v1/cities/search';
 const weatherBase = 'http://dataservice.accuweather.com/currentconditions/v1/';
 const searchForm = document.querySelector('.search-form');
+const locationCity = document.querySelector('.location-city > span');
+const locationCountry = document.querySelector('.location-country');
 
 // get location
 class LocationFetcher {
@@ -46,6 +48,19 @@ class WeatherFetcher {
     }
 }
 
+// display location data
+class LocationDataDisplayer {
+    constructor(data) {
+        this.cityName = data.EnglishName;
+        this.countryName = data.Country.EnglishName;
+    }
+
+    display = function () {
+        locationCity.textContent = `${this.cityName}`;
+        locationCountry.textContent = `${this.countryName}`;
+    }
+}
+
 // main
 const main = function () {
     searchForm.addEventListener('submit', (e) => {
@@ -60,9 +75,13 @@ const main = function () {
             console.log(data);
             console.log(data.EnglishName);
             console.log(data.Country.EnglishName);
-            const locationKey = data.Key;
+
+            // display location data
+            const locationDataDisplayer = new LocationDataDisplayer(data);
+            locationDataDisplayer.display();
 
             // fetching weather data
+            const locationKey = data.Key;
             const weatherFetcher = new WeatherFetcher(locationKey);
             weatherFetcher.getData().then(data => {
                 console.log(data);
