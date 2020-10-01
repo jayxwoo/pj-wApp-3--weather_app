@@ -12,6 +12,7 @@ const locationCountry = document.querySelector('.location-country');
 const weatherInfoText = document.querySelector('.weather-info-text');
 const weatherInfoFigure = document.querySelector('.weather-info-figure > span');
 const dayNightImg = document.querySelector('.day-night-img');
+const weatherIconImg = document.querySelector('.weather-icon-img');
 
 // get location
 class LocationFetcher {
@@ -92,6 +93,17 @@ class DayNightImageDisplayer {
     }
 }
 
+// display weather icon
+class WeatherIconDisplayer {
+    constructor(data) {
+        this.weatherIconNumber = data.WeatherIcon;
+    }
+
+    display = function () {
+        weatherIconImg.setAttribute('src', `./img/icons/${this.weatherIconNumber}.svg`);
+    }
+}
+
 // main
 const main = function () {
     searchForm.addEventListener('submit', (e) => {
@@ -120,6 +132,10 @@ const main = function () {
                 // display day or night image
                 const dayNightImageDisplayer = new DayNightImageDisplayer(data);
                 dayNightImageDisplayer.display();
+
+                // display weather icon
+                const weatherIconDiplayer = new WeatherIconDisplayer(data);
+                weatherIconDiplayer.display();
             });
         }).catch(err => {
             console.log(err);
