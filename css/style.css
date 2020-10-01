@@ -28,12 +28,12 @@ body { font-family: Helvetica; }
 
 /* app container & app main */
 .app-container { background-image: url(../img/app-bg.jpg); width: 100vw; min-height: 100vh; background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.app-main { text-align: center; width: 80%; max-width: 300px; }
+.app-main { text-align: center; width: 80%; max-width: 500px; }
 
 /* header */
-.header { background-color: var(--main); border-radius: 20px; padding: 25px; color: var(--contrast); margin-bottom: 10px; }
+.header { background-color: var(--main); border-radius: 20px; padding: 30px; color: var(--contrast); margin-bottom: 10px; display: flex; flex-direction: column; align-items: center; }
 .app-title { margin-bottom: 25px; font-size: 25px; }
-.search-form { display: flex; }
+.search-form { width: 100%; display: flex; }
 .search-label { margin-bottom: 15px; font-size: 0.7; }
 .search-input { border: none; outline: none; font-size: 0.9rem; padding: 10px; border-radius: 5px; color: var(--blue); font-weight: bold; flex-grow: 1; margin-right: 5px; }
 .search-input::placeholder { color: var(--blue); font-weight: lighter; }
