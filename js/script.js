@@ -11,6 +11,7 @@ const locationCity = document.querySelector('.location-city > span');
 const locationCountry = document.querySelector('.location-country');
 const weatherInfoText = document.querySelector('.weather-info-text');
 const weatherInfoFigure = document.querySelector('.weather-info-figure > span');
+const dayNightImg = document.querySelector('.day-night-img');
 
 // get location
 class LocationFetcher {
@@ -76,6 +77,21 @@ class WeatherDataDisplayer {
     }
 }
 
+// display day and night iamge
+class DayNightImageDisplayer {
+    constructor(data) {
+        this.isDayTime = data.IsDayTime;
+    }
+
+    display = function () {
+        if (this.isDayTime) {
+            dayNightImg.setAttribute('src', './img/day.svg');
+        } else if (!this.isDayTime) {
+            dayNightImg.setAttribute('src', './img/night.svg');
+        };
+    }
+}
+
 // main
 const main = function () {
     searchForm.addEventListener('submit', (e) => {
@@ -100,6 +116,10 @@ const main = function () {
                 // display weather data
                 const weatherDataDisplayer = new WeatherDataDisplayer(data);
                 weatherDataDisplayer.display();
+
+                // display day or night image
+                const dayNightImageDisplayer = new DayNightImageDisplayer(data);
+                dayNightImageDisplayer.display();
             });
         }).catch(err => {
             console.log(err);
