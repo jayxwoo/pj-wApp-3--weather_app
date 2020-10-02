@@ -3,7 +3,7 @@ import './default.js';
 
 // ========== script ==========
 // reference
-const appKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
+const accuWeatherKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
 const locationBase = 'http://dataservice.accuweather.com/locations/v1/cities/search';
 const weatherBase = 'http://dataservice.accuweather.com/currentconditions/v1/';
 const searchForm = document.querySelector('.search-form');
@@ -19,7 +19,7 @@ const darkModeForm = document.querySelector('.dark-mode-form');
 class LocationFetcher {
     constructor(location) {
         this.location = location;
-        this.locationQuery = `?apikey=${appKey}&q=${this.location}`;
+        this.locationQuery = `?apikey=${accuWeatherKey}&q=${this.location}`;
         this.locationEndpoint = locationBase + this.locationQuery;
     }
 
@@ -38,7 +38,7 @@ class LocationFetcher {
 class WeatherFetcher {
     constructor(locationKey) {
         this.locationKey = locationKey;
-        this.weatherQuery = `${this.locationKey}?apikey=${appKey}`;
+        this.weatherQuery = `${this.locationKey}?apikey=${accuWeatherKey}`;
         this.weatherEndpoint = weatherBase + this.weatherQuery;
     }
 
@@ -117,6 +117,8 @@ const main = function () {
         // fetching location data
         const locationFetcher = new LocationFetcher(location);
         locationFetcher.getData().then(data => {
+
+            console.log(data);
 
             // display location data
             const locationDataDisplayer = new LocationDataDisplayer(data);
