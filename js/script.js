@@ -4,8 +4,10 @@ import './default.js';
 // ========== script ==========
 // reference
 const accuWeatherKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
+const timeZoneDbKey = 'V8A1I6L2JXZJ';
 const locationBase = 'http://dataservice.accuweather.com/locations/v1/cities/search';
 const weatherBase = 'http://dataservice.accuweather.com/currentconditions/v1/';
+const timeBase = 'http://api.timezonedb.com/v2.1/get-time-zone';
 const searchForm = document.querySelector('.search-form');
 const locationCity = document.querySelector('.location-city > span');
 const locationCountry = document.querySelector('.location-country');
@@ -27,14 +29,14 @@ class LocationFetcher {
         // fetch
         const response = await fetch(this.locationEndpoint);
 
-        // convert json data into objects
+        // convert json data into js objects
         const data = await response.json();
 
         return data[0];
     }
 }
 
-// get weatther
+// get weather
 class WeatherFetcher {
     constructor(locationKey) {
         this.locationKey = locationKey;
@@ -46,10 +48,30 @@ class WeatherFetcher {
         // fetch
         const response = await fetch(this.weatherEndpoint);
 
-        // convert json data into objects
+        // convert json data into js objects
         const data = await response.json();
 
         return data[0];
+    }
+}
+
+// get time
+class TimeFetcher {
+    constructor(data) {
+        this.latitude = data.GeoPosition.Latitude;
+        this.longitude = data.GeoPosition.Longitude;
+        this.timeQuery = `?key=${timeZoneDbKey}&format=json&by=position&lat=${this.latitude}&lng=${this.longitude}`;
+        this.timeEndpoint = timeBase + this.timeQuery;
+    }
+
+    getData = async function () {
+        // fetch
+        const response = await fetch(this.timeEndpoint);
+
+        // convert json data into js objects
+        const data = await response.json();
+
+        return data;
     }
 }
 
@@ -79,7 +101,7 @@ class WeatherDataDisplayer {
     }
 }
 
-// display day and night iamge
+// display day and night image
 class DayNightImageDisplayer {
     constructor(data) {
         this.isDayTime = data.IsDayTime;
@@ -105,6 +127,17 @@ class WeatherIconDisplayer {
     }
 }
 
+// display date and time
+class DateTimeDisplayer {
+    constructor(data) {
+        this.date  = data.formatted.slice(0, 10);
+        this.time = data.formatted.slice(11);
+    }
+
+    
+}
+
+
 // main
 const main = function () {
     // search weather
@@ -117,8 +150,6 @@ const main = function () {
         // fetching location data
         const locationFetcher = new LocationFetcher(location);
         locationFetcher.getData().then(data => {
-
-            console.log(data);
 
             // display location data
             const locationDataDisplayer = new LocationDataDisplayer(data);
@@ -141,10 +172,16 @@ const main = function () {
                 const weatherIconDiplayer = new WeatherIconDisplayer(data);
                 weatherIconDiplayer.display();
             });
+
+            // fetching time zone data
+            const timeFetcher = new TimeFetcher(data);
+            timeFetcher.getData().then(data => {
+                
+            });
+
         }).catch(err => {
             console.log(err);
         });
-
 
         searchForm.reset();
     });
