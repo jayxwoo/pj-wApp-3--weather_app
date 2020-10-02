@@ -13,6 +13,7 @@ const weatherInfoText = document.querySelector('.weather-info-text');
 const weatherInfoFigure = document.querySelector('.weather-info-figure > span');
 const dayNightImg = document.querySelector('.day-night-img');
 const weatherIconImg = document.querySelector('.weather-icon-img');
+const darkModeForm = document.querySelector('.dark-mode-form');
 
 // get location
 class LocationFetcher {
@@ -106,6 +107,7 @@ class WeatherIconDisplayer {
 
 // main
 const main = function () {
+    // search weather
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -143,6 +145,19 @@ const main = function () {
 
 
         searchForm.reset();
+    });
+
+    // dark mode toggle
+    darkModeForm.addEventListener('change', () => {
+        if (darkModeForm.dark.checked) {
+            document.documentElement.style.setProperty('--main', 'rgba(0, 0, 0, 0.7)');
+            document.documentElement.style.setProperty('--contrast', 'rgba(250, 250, 250, 0.7)');
+            locationCountry.style.color = 'var(--lightgrey)';
+        } else {
+            document.documentElement.style.setProperty('--main', 'rgba(250, 250, 250, 0.7)');
+            document.documentElement.style.setProperty('--contrast', 'rgba(0, 0, 0, 0.7)');
+            locationCountry.style.color = 'var(--grey)';
+        };
     });
 };
 
