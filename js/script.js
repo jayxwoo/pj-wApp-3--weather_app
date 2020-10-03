@@ -117,7 +117,7 @@ class DayNightImageDisplayer {
             dayNightImg.setAttribute('src', './img/night.svg');
         };
     }
-    changeTextColour = function () {
+    changeDateTimeTextColour = function () {
         if (dayNightImg.getAttribute('src').includes('night')) {
             localDate.style.color = 'var(--white)';
             localTime.style.color = 'var(--white)';
@@ -181,7 +181,7 @@ const main = function () {
                 // display day or night image
                 const dayNightImageDisplayer = new DayNightImageDisplayer(data);
                 dayNightImageDisplayer.display();
-                dayNightImageDisplayer.changeTextColour();
+                dayNightImageDisplayer.changeDateTimeTextColour();
 
                 // display weather icon
                 const weatherIconDiplayer = new WeatherIconDisplayer(data);
