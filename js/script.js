@@ -17,6 +17,9 @@ const dayNightImg = document.querySelector('.day-night-img');
 const weatherIconImg = document.querySelector('.weather-icon-img');
 const darkModeForm = document.querySelector('.dark-mode-form');
 
+const localDate = document.querySelector('.local-date');
+const localTime = document.querySelector('.local-time');
+
 // get location
 class LocationFetcher {
     constructor(location) {
@@ -114,6 +117,15 @@ class DayNightImageDisplayer {
             dayNightImg.setAttribute('src', './img/night.svg');
         };
     }
+    changeTextColour = function () {
+        if (dayNightImg.getAttribute('src').includes('night')) {
+            localDate.style.color = 'var(--white)';
+            localTime.style.color = 'var(--white)';
+        } else if (dayNightImg.getAttribute('src').includes('day')) {
+            localDate.style.color = 'var(--black)';
+            localTime.style.color = 'var(--black)';
+        };
+    }
 }
 
 // display weather icon
@@ -134,9 +146,11 @@ class DateTimeDisplayer {
         this.time = data.formatted.slice(11);
     }
 
-    
+    display = function () {
+        localDate.textContent = this.date;
+        localTime.textContent = this.time;
+    }
 }
-
 
 // main
 const main = function () {
@@ -167,6 +181,7 @@ const main = function () {
                 // display day or night image
                 const dayNightImageDisplayer = new DayNightImageDisplayer(data);
                 dayNightImageDisplayer.display();
+                dayNightImageDisplayer.changeTextColour();
 
                 // display weather icon
                 const weatherIconDiplayer = new WeatherIconDisplayer(data);
@@ -176,9 +191,9 @@ const main = function () {
             // fetching time zone data
             const timeFetcher = new TimeFetcher(data);
             timeFetcher.getData().then(data => {
-                
+                const dateTimeDisplayer = new DateTimeDisplayer(data);
+                dateTimeDisplayer.display();
             });
-
         }).catch(err => {
             console.log(err);
         });
