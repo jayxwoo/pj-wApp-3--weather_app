@@ -197,7 +197,7 @@ const main = function () {
                 });
             };
             getDisplayDateTime();
-            const interval = setInterval(getDisplayDateTime, 5000);
+            const interval = setInterval(getDisplayDateTime, 10000);
             e.target.addEventListener('change', (e) => {
                 clearInterval(interval);
             });
