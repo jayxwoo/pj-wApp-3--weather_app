@@ -190,9 +190,16 @@ const main = function () {
 
             // fetching time zone data
             const timeFetcher = new TimeFetcher(data);
-            timeFetcher.getData().then(data => {
-                const dateTimeDisplayer = new DateTimeDisplayer(data);
-                dateTimeDisplayer.display();
+            const getDisplayDateTime = function () {
+                timeFetcher.getData().then(data => {
+                    const dateTimeDisplayer = new DateTimeDisplayer(data);
+                    dateTimeDisplayer.display();
+                });
+            };
+            getDisplayDateTime();
+            const interval = setInterval(getDisplayDateTime, 5000);
+            e.target.addEventListener('change', (e) => {
+                clearInterval(interval);
             });
         }).catch(err => {
             console.log(err);
