@@ -5,9 +5,9 @@ import './default.js';
 // reference
 const accuWeatherKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
 const timeZoneDbKey = 'V8A1I6L2JXZJ';
-const locationBase = 'https://dataservice.accuweather.com/locations/v1/cities/search';
-const weatherBase = 'https://dataservice.accuweather.com/currentconditions/v1/';
-const timeBase = 'https://api.timezonedb.com/v2.1/get-time-zone';
+const locationBase = 'http://dataservice.accuweather.com/locations/v1/cities/search';
+const weatherBase = 'http://dataservice.accuweather.com/currentconditions/v1/';
+const timeBase = 'http://api.timezonedb.com/v2.1/get-time-zone';
 const searchForm = document.querySelector('.search-form');
 const locationCity = document.querySelector('.location-city > span');
 const locationCountry = document.querySelector('.location-country');
