@@ -234,6 +234,7 @@ const main = function () {
 
             // stop setInterval when user submits another search
             e.target.addEventListener('change', (e) => {
+                e.preventDefault();
                 clearInterval(interval);
                 console.log('interval cleared');
             });
@@ -311,10 +312,7 @@ const main = function () {
                         const interval = setInterval(fetchDisplayDateTime, 5000);
 
                         // stop setInterval when user clicks the button again
-                        e.target.addEventListener('click', (e) => {
-                            clearInterval(interval);
-                            console.log('interval cleared');
-                        });
+                        
                     });
                 }).catch((err) => {
                     console.log(err);
