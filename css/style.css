@@ -53,6 +53,10 @@ body { font-family: Helvetica; }
 .search-btn:hover { background-color: var(--darkblue); }
 .search-btn:active { transform: translate(1px, 1px); }
 
+.user-location-btn { outline: none; border: 1px solid var(--blue); background-color: white; color: var(--blue); border-radius: 5px; padding: 10px; cursor: pointer; margin-top: 15px; width: 100%; }
+.user-location-btn:hover { background-color: var(--lightgrey); }
+.user-location-btn:active { transform: translate(1px, 1px); }
+
 /* result card */
 .result-card { background-color: var(--main); border-radius: 20px; overflow: hidden; transition: all ease-in-out 0.3s; position: relative; }
 .day-night-img { width: 100%; }
