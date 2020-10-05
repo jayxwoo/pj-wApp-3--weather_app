@@ -2,12 +2,16 @@
 import './default.js';
 
 // ========== script ==========
-// endpoints
+// key
 const accuWeatherKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
 const timeZoneDbKey = 'V8A1I6L2JXZJ';
+const openCageDataKey = 'a071d763dfef420088c8e582f4eb48e9';
+
+// endpoints
 const locationBase = 'https://dataservice.accuweather.com/locations/v1/cities/search';
 const weatherBase = 'https://dataservice.accuweather.com/currentconditions/v1/';
 const timeBase = 'https://api.timezonedb.com/v2.1/get-time-zone';
+const geoBase = 'https://api.opencagedata.com/geocode/v1/';
 
 // references
 const searchForm = document.querySelector('.search-form');
@@ -30,11 +34,11 @@ class LocationFetcher {
         this.locationEndpoint = locationBase + this.locationQuery;
     }
 
-    getData = async function () {
+    fetch = async function () {
         // fetch
         const response = await fetch(this.locationEndpoint);
 
-        // convert json data into js objects
+        // json -> js objects
         const data = await response.json();
 
         return data[0];
@@ -49,11 +53,11 @@ class WeatherFetcher {
         this.weatherEndpoint = weatherBase + this.weatherQuery;
     }
 
-    getData = async function () {
+    fetch = async function () {
         // fetch
         const response = await fetch(this.weatherEndpoint);
 
-        // convert json data into js objects
+        // json -> js objects
         const data = await response.json();
 
         return data[0];
@@ -69,19 +73,39 @@ class TimeFetcher {
         this.timeEndpoint = timeBase + this.timeQuery;
     }
 
-    getData = async function () {
+    fetch = async function () {
         // fetch
         const response = await fetch(this.timeEndpoint);
 
-        // convert json data into js objects
+        // json -> js objects
         const data = await response.json();
 
         return data;
     }
 }
 
+// get city
+class GeoFetcher {
+    constructor(data) {
+        this.latitude = data.coords.latitude;
+        this.longitude = data.coords.longitude;
+        this.geoQuery = `json?q=${this.latitude}+${this.longitude}&key=${openCageDataKey}`;
+        this.geoEndpoint = geoBase + this.geoQuery;
+    }
+
+    fetch = async function () {
+        // fetch
+        const response = await fetch(this.geoEndpoint);
+
+        // json -> js objects
+        const data = await response.json();
+
+        return data;
+    };
+}
+
 // display location data
-class LocationDataDisplayer {
+class LocationDisplayer {
     constructor(data) {
         this.cityName = data.EnglishName;
         this.countryName = data.Country.EnglishName;
@@ -94,7 +118,7 @@ class LocationDataDisplayer {
 }
 
 // display weather data
-class WeatherDataDisplayer {
+class WeatherDisplayer {
     constructor(data) {
         this.weatherInfo = data.WeatherText;
         this.weatherTemp = data.Temperature.Metric.Value;
@@ -144,7 +168,7 @@ class WeatherIconDisplayer {
 // display date and time
 class DateTimeDisplayer {
     constructor(data) {
-        this.date  = data.formatted.slice(0, 10);
+        this.date = data.formatted.slice(0, 10);
         this.time = data.formatted.slice(11);
     }
 
@@ -163,22 +187,22 @@ const main = function () {
         // get location search input
         const location = searchForm.search.value.trim().toLowerCase();
 
-        // fetching location data
+        // fetch location
         const locationFetcher = new LocationFetcher(location);
-        locationFetcher.getData().then(data => {
+        locationFetcher.fetch().then(data => {
 
-            // display location data
-            const locationDataDisplayer = new LocationDataDisplayer(data);
-            locationDataDisplayer.display();
+            // display location
+            const locationDisplayer = new LocationDisplayer(data);
+            locationDisplayer.display();
 
-            // fetching weather data
+            // fetch weather
             const locationKey = data.Key;
             const weatherFetcher = new WeatherFetcher(locationKey);
-            weatherFetcher.getData().then(data => {
+            weatherFetcher.fetch().then(data => {
 
-                // display weather data
-                const weatherDataDisplayer = new WeatherDataDisplayer(data);
-                weatherDataDisplayer.display();
+                // display weather
+                const weatherDisplayer = new WeatherDisplayer(data);
+                weatherDisplayer.display();
 
                 // display day or night image
                 const dayNightImageDisplayer = new DayNightImageDisplayer(data);
@@ -190,18 +214,28 @@ const main = function () {
                 weatherIconDiplayer.display();
             });
 
-            // fetching time zone data
+            // fetch & display time
             const timeFetcher = new TimeFetcher(data);
-            const getDisplayDateTime = function () {
-                timeFetcher.getData().then(data => {
+            const fetchDisplayDateTime = function () {
+
+                // fetch time
+                timeFetcher.fetch().then(data => {
+
+                    // display time
                     const dateTimeDisplayer = new DateTimeDisplayer(data);
                     dateTimeDisplayer.display();
                 });
             };
-            getDisplayDateTime();
-            const interval = setInterval(getDisplayDateTime, 5000);
+
+            fetchDisplayDateTime();
+
+            // update time every 5 seconds
+            const interval = setInterval(fetchDisplayDateTime, 5000);
+
+            // stop setInterval when user submits another search
             e.target.addEventListener('change', (e) => {
                 clearInterval(interval);
+                console.log('interval cleared');
             });
         }).catch(err => {
             console.log(err);
@@ -224,11 +258,67 @@ const main = function () {
     });
 
     // user location button
-    userLocationBtn.addEventListener('click', () => {
+    userLocationBtn.addEventListener('click', (e) => {
         if (window.navigator.geolocation) {
             window.navigator.geolocation.getCurrentPosition((data) => {
-                console.log(data.coords.latitude);
-                console.log(data.coords.longitude);
+                const geoFetcher = new GeoFetcher(data);
+                geoFetcher.fetch().then((data) => {
+                    const location = data.results[0].components.city.trim().toLowerCase();
+
+                    // fetch location
+                    const locationFetcher = new LocationFetcher(location);
+                    locationFetcher.fetch().then((data) => {
+
+                        // display location
+                        const locationDisplayer = new LocationDisplayer(data);
+                        locationDisplayer.display();
+
+                        // fetch weather
+                        const locationKey = data.Key;
+                        const weatherFetcher = new WeatherFetcher(locationKey);
+                        weatherFetcher.fetch().then((data) => {
+
+                            // display weather
+                            const weatherDisplayer = new WeatherDisplayer(data);
+                            weatherDisplayer.display();
+
+                            // display day or night image
+                            const dayNightImageDisplayer = new DayNightImageDisplayer(data);
+                            dayNightImageDisplayer.display();
+                            dayNightImageDisplayer.changeDateTimeTextColour();
+
+                            // display weather icon
+                            const weatherIconDiplayer = new WeatherIconDisplayer(data);
+                            weatherIconDiplayer.display();
+                        });
+
+                        // fetch & display time
+                        const timeFetcher = new TimeFetcher(data);
+                        const fetchDisplayDateTime = function () {
+
+                            // fetch time
+                            timeFetcher.fetch().then(data => {
+
+                                // display time
+                                const dateTimeDisplayer = new DateTimeDisplayer(data);
+                                dateTimeDisplayer.display();
+                            });
+                        };
+
+                        fetchDisplayDateTime();
+
+                        // update time every 5 seconds
+                        const interval = setInterval(fetchDisplayDateTime, 5000);
+
+                        // stop setInterval when user clicks the button again
+                        e.target.addEventListener('click', (e) => {
+                            clearInterval(interval);
+                            console.log('interval cleared');
+                        });
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
             });
         } else {
             window.alert('Cannot fetch your location. Please, use the above input field.');
