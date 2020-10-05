@@ -2,12 +2,14 @@
 import './default.js';
 
 // ========== script ==========
-// reference
+// endpoints
 const accuWeatherKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
 const timeZoneDbKey = 'V8A1I6L2JXZJ';
 const locationBase = 'https://dataservice.accuweather.com/locations/v1/cities/search';
 const weatherBase = 'https://dataservice.accuweather.com/currentconditions/v1/';
 const timeBase = 'https://api.timezonedb.com/v2.1/get-time-zone';
+
+// references
 const searchForm = document.querySelector('.search-form');
 const locationCity = document.querySelector('.location-city > span');
 const locationCountry = document.querySelector('.location-country');
@@ -18,6 +20,7 @@ const weatherIconImg = document.querySelector('.weather-icon-img');
 const darkModeForm = document.querySelector('.dark-mode-form');
 const localDate = document.querySelector('.local-date');
 const localTime = document.querySelector('.local-time');
+const userLocationBtn = document.querySelector('.user-location-btn');
 
 // get location
 class LocationFetcher {
@@ -217,6 +220,18 @@ const main = function () {
             document.documentElement.style.setProperty('--main', 'rgba(250, 250, 250, 0.7)');
             document.documentElement.style.setProperty('--contrast', 'rgba(0, 0, 0, 0.7)');
             locationCountry.style.color = 'var(--grey)';
+        };
+    });
+
+    // user location button
+    userLocationBtn.addEventListener('click', () => {
+        if (window.navigator.geolocation) {
+            window.navigator.geolocation.getCurrentPosition((data) => {
+                console.log(data.coords.latitude);
+                console.log(data.coords.longitude);
+            });
+        } else {
+            window.alert('Cannot fetch your location. Please, use the above input field.');
         };
     });
 };
