@@ -224,7 +224,7 @@ const main = function () {
             });
 
         }).catch(err => {
-            console.log(err);
+            window.alert('Please, type in a valid city name in English.');
         });
 
         searchForm.reset();
@@ -291,11 +291,11 @@ const main = function () {
 
                     });
                 }).catch((err) => {
-                    console.log(err);
+                    window.alert('Unable to find your location. Please, use the input field.');
                 });
             });
         } else {
-            window.alert('Cannot fetch your location. Please, use the above input field.');
+            window.alert('Unable to find your location. Please, use the input field.');
         };
     });
 };
