@@ -34,7 +34,7 @@ body { font-family: Helvetica; }
 .app-main { text-align: center; width: 80%; min-width: 300px; max-width: 400px; }
 
 /* header */
-.header { background-color: var(--main); border-radius: 20px; padding: 40px; color: var(--contrast); margin-bottom: 10px; display: flex; flex-direction: column; align-items: center; position: relative; transition: all ease-in-out 0.3s; }
+.header { background-color: var(--main); border-radius: 20px; padding: 30px; color: var(--contrast); margin-bottom: 10px; display: flex; flex-direction: column; align-items: center; position: relative; transition: all ease-in-out 0.3s; }
 
 .dark-mode-form { display: flex; position: absolute; top: 15px; right: 15px; }
 .dark-mode-label { color: var(--constrast); text-transform: uppercase; font-size: 12px; font-weight: bold; padding: 0 5px; display: flex; align-items: center; }
