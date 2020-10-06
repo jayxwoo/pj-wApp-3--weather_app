@@ -214,30 +214,15 @@ const main = function () {
                 weatherIconDiplayer.display();
             });
 
-            // fetch & display time
+            // fetch time
             const timeFetcher = new TimeFetcher(data);
-            const fetchDisplayDateTime = function () {
+            timeFetcher.fetch().then(data => {
 
-                // fetch time
-                timeFetcher.fetch().then(data => {
-
-                    // display time
-                    const dateTimeDisplayer = new DateTimeDisplayer(data);
-                    dateTimeDisplayer.display();
-                });
-            };
-
-            fetchDisplayDateTime();
-
-            // update time every 5 seconds
-            const interval = setInterval(fetchDisplayDateTime, 5000);
-
-            // stop setInterval when user submits another search
-            e.target.addEventListener('change', (e) => {
-                e.preventDefault();
-                clearInterval(interval);
-                console.log('interval cleared');
+                // display time
+                const dateTimeDisplayer = new DateTimeDisplayer(data);
+                dateTimeDisplayer.display();
             });
+
         }).catch(err => {
             console.log(err);
         });
@@ -295,24 +280,15 @@ const main = function () {
 
                         // fetch & display time
                         const timeFetcher = new TimeFetcher(data);
-                        const fetchDisplayDateTime = function () {
 
-                            // fetch time
-                            timeFetcher.fetch().then(data => {
+                        // fetch time
+                        timeFetcher.fetch().then(data => {
 
-                                // display time
-                                const dateTimeDisplayer = new DateTimeDisplayer(data);
-                                dateTimeDisplayer.display();
-                            });
-                        };
+                            // display time
+                            const dateTimeDisplayer = new DateTimeDisplayer(data);
+                            dateTimeDisplayer.display();
+                        });
 
-                        fetchDisplayDateTime();
-
-                        // update time every 5 seconds
-                        const interval = setInterval(fetchDisplayDateTime, 5000);
-
-                        // stop setInterval when user clicks the button again
-                        
                     });
                 }).catch((err) => {
                     console.log(err);
