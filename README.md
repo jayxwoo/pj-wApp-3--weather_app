@@ -17,9 +17,12 @@
 - CSS
 - JS
     - DOM manipulation
-    - event listner
+    - event listener
     - class
     - async function
     - fetch
     - API
     - JS modules
+## Screenshots
+![weather app screenshot 01](./screenshot-01.png)
+![weather app screenshot 02](./screenshot-02.png)
