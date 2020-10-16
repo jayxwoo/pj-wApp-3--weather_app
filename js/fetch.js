@@ -1,6 +1,5 @@
 // ========== variables ==========
 // API keys
-const accuWeatherKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
 const timeZoneDbKey = 'V8A1I6L2JXZJ';
 const openCageDataKey = 'a071d763dfef420088c8e582f4eb48e9';
 
@@ -13,9 +12,8 @@ const geoBase = 'https://api.opencagedata.com/geocode/v1/';
 // ========== fetch ==========
 // fetch location
 export class LocationFetcher {
-    constructor(location) {
-        this.location = location;
-        this.locationQuery = `?apikey=${accuWeatherKey}&q=${this.location}`;
+    constructor(location, accuWeatherKey) {
+        this.locationQuery = `?apikey=${accuWeatherKey}&q=${location}`;
         this.locationEndpoint = locationBase + this.locationQuery;
     }
 
@@ -32,9 +30,8 @@ export class LocationFetcher {
 
 // fetch weather
 export class WeatherFetcher {
-    constructor(locationKey) {
-        this.locationKey = locationKey;
-        this.weatherQuery = `${this.locationKey}?apikey=${accuWeatherKey}`;
+    constructor(locationKey, accuWeatherKey) {
+        this.weatherQuery = `${locationKey}?apikey=${accuWeatherKey}`;
         this.weatherEndpoint = weatherBase + this.weatherQuery;
     }
 

@@ -16,6 +16,9 @@ const darkModeForm = document.querySelector('.dark-mode-form');
 export const localDate = document.querySelector('.local-date');
 export const localTime = document.querySelector('.local-time');
 const userLocationBtn = document.querySelector('.user-location-btn');
+// API keys
+const accuWeatherKey = '9nmmB1MUGkNFqHusjj7qybPu90aAnj8T';
+
 
 // main
 const main = function () {
@@ -27,7 +30,7 @@ const main = function () {
         const location = searchForm.search.value.trim().toLowerCase();
 
         // fetch location
-        const locationFetcher = new LocationFetcher(location);
+        const locationFetcher = new LocationFetcher(location, accuWeatherKey);
         locationFetcher.fetch().then(data => {
 
             // display location
@@ -36,7 +39,7 @@ const main = function () {
 
             // fetch weather
             const locationKey = data.Key;
-            const weatherFetcher = new WeatherFetcher(locationKey);
+            const weatherFetcher = new WeatherFetcher(locationKey, accuWeatherKey);
             weatherFetcher.fetch().then(data => {
 
                 // display weather
@@ -91,7 +94,7 @@ const main = function () {
                     const location = data.results[0].components.city.trim().toLowerCase();
 
                     // fetch location
-                    const locationFetcher = new LocationFetcher(location);
+                    const locationFetcher = new LocationFetcher(location, accuWeatherKey);
                     locationFetcher.fetch().then((data) => {
 
                         // display location
@@ -100,7 +103,7 @@ const main = function () {
 
                         // fetch weather
                         const locationKey = data.Key;
-                        const weatherFetcher = new WeatherFetcher(locationKey);
+                        const weatherFetcher = new WeatherFetcher(locationKey, accuWeatherKey);
                         weatherFetcher.fetch().then((data) => {
 
                             // display weather
