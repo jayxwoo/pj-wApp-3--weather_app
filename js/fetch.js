@@ -1,18 +1,7 @@
-// ========== variables ==========
-// API keys
-const timeZoneDbKey = 'V8A1I6L2JXZJ';
-const openCageDataKey = 'a071d763dfef420088c8e582f4eb48e9';
-
-// API endpoint bases
-const locationBase = 'https://dataservice.accuweather.com/locations/v1/cities/search';
-const weatherBase = 'https://dataservice.accuweather.com/currentconditions/v1/';
-const timeBase = 'https://api.timezonedb.com/v2.1/get-time-zone';
-const geoBase = 'https://api.opencagedata.com/geocode/v1/';
-
 // ========== fetch ==========
 // fetch location
 export class LocationFetcher {
-    constructor(location, accuWeatherKey) {
+    constructor(location, accuWeatherKey, locationBase) {
         this.locationQuery = `?apikey=${accuWeatherKey}&q=${location}`;
         this.locationEndpoint = locationBase + this.locationQuery;
     }
@@ -30,7 +19,7 @@ export class LocationFetcher {
 
 // fetch weather
 export class WeatherFetcher {
-    constructor(locationKey, accuWeatherKey) {
+    constructor(locationKey, accuWeatherKey, weatherBase) {
         this.weatherQuery = `${locationKey}?apikey=${accuWeatherKey}`;
         this.weatherEndpoint = weatherBase + this.weatherQuery;
     }
@@ -48,7 +37,7 @@ export class WeatherFetcher {
 
 // get time
 export class TimeFetcher {
-    constructor(data) {
+    constructor(data, timeZoneDbKey, timeBase) {
         this.latitude = data.GeoPosition.Latitude;
         this.longitude = data.GeoPosition.Longitude;
         this.timeQuery = `?key=${timeZoneDbKey}&format=json&by=position&lat=${this.latitude}&lng=${this.longitude}`;
@@ -68,7 +57,7 @@ export class TimeFetcher {
 
 // fetch city
 export class GeoFetcher {
-    constructor(data) {
+    constructor(data, openCageDataKey, geoBase) {
         this.latitude = data.coords.latitude;
         this.longitude = data.coords.longitude;
         this.geoQuery = `json?q=${this.latitude}+${this.longitude}&key=${openCageDataKey}`;

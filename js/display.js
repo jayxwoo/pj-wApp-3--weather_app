@@ -1,77 +1,84 @@
-// ========== imports ==========
-import { locationCity, locationCountry, weatherInfoText, weatherInfoFigure, dayNightImg, weatherIconImg, localDate, localTime } from './app.js';
-
 // ========== display ==========
 // display location data
 export class LocationDisplayer {
-    constructor(data) {
+    constructor(data, locationCity, locationCountry) {
         this.cityName = data.EnglishName;
         this.countryName = data.Country.EnglishName;
+        this.locationCity = locationCity;
+        this.locationCountry = locationCountry;
     }
 
     display = function () {
-        locationCity.textContent = `${this.cityName}`;
-        locationCountry.textContent = `${this.countryName}`;
+        this.locationCity.textContent = `${this.cityName}`;
+        this.locationCountry.textContent = `${this.countryName}`;
     }
 }
 
 // display weather data
 export class WeatherDisplayer {
-    constructor(data) {
+    constructor(data, weatherInfoText, weatherInfoFigure) {
         this.weatherInfo = data.WeatherText;
         this.weatherTemp = data.Temperature.Metric.Value;
+        this.weatherInfoText = weatherInfoText;
+        this.weatherInfoFigure = weatherInfoFigure;
     }
 
     display = function () {
-        weatherInfoText.textContent = this.weatherInfo;
-        weatherInfoFigure.textContent = this.weatherTemp;
+        this.weatherInfoText.textContent = this.weatherInfo;
+        this.weatherInfoFigure.textContent = this.weatherTemp;
     }
 }
 
 // display day and night image
 export class DayNightImageDisplayer {
-    constructor(data) {
+    constructor(data, dayNightImg, localDate, localTime) {
         this.isDayTime = data.IsDayTime;
+        this.dayNightImg = dayNightImg;
+        this.localDate = localDate;
+        this.localTime = localTime;
     }
 
     display = function () {
         if (this.isDayTime) {
-            dayNightImg.setAttribute('src', './img/day.svg');
+            this.dayNightImg.setAttribute('src', './img/day.svg');
         } else if (!this.isDayTime) {
-            dayNightImg.setAttribute('src', './img/night.svg');
+            this.dayNightImg.setAttribute('src', './img/night.svg');
         };
     }
     changeDateTimeTextColour = function () {
-        if (dayNightImg.getAttribute('src').includes('night')) {
-            localDate.style.color = 'var(--white)';
-            localTime.style.color = 'var(--white)';
-        } else if (dayNightImg.getAttribute('src').includes('day')) {
-            localDate.style.color = 'var(--black)';
-            localTime.style.color = 'var(--black)';
+        if (this.dayNightImg.getAttribute('src').includes('night')) {
+            this.localDate.style.color = 'var(--white)';
+            this.localTime.style.color = 'var(--white)';
+        } else if (this.dayNightImg.getAttribute('src').includes('day')) {
+            this.localDate.style.color = 'var(--black)';
+            this.localTime.style.color = 'var(--black)';
         };
     }
 }
 
 // display weather icon
 export class WeatherIconDisplayer {
-    constructor(data) {
+    constructor(data, weatherIconImg) {
         this.weatherIconNumber = data.WeatherIcon;
+        this.weatherIconImg = weatherIconImg;
     }
 
     display = function () {
-        weatherIconImg.setAttribute('src', `./img/icons/${this.weatherIconNumber}.svg`);
+        this.weatherIconImg.setAttribute('src', `./img/icons/${this.weatherIconNumber}.svg`);
     }
 }
 
 // display date and time
 export class DateTimeDisplayer {
-    constructor(data) {
+    constructor(data, localDate, localTime) {
         this.date = data.formatted.slice(0, 10);
         this.time = data.formatted.slice(11);
+        this.localDate = localDate;
+        this.localTime = localTime;
     }
 
     display = function () {
-        localDate.textContent = this.date;
-        localTime.textContent = this.time;
+        this.localDate.textContent = this.date;
+        this.localTime.textContent = this.time;
     }
 }
